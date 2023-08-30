@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Clock</title>
   <style>
-    
-    #container,
-    .border,
-    .general-date {
+    body {
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+
+    .centered-flex {
       display: flex;
       justify-content: center;
       align-items: center;
-      font-family: Verdana, Geneva, Tahoma, sans-serif;
     }
 
     #container {
@@ -22,9 +22,9 @@
     .border {
       flex-direction: column;
       border: 2px solid rgb(196, 226, 255);
-      box-shadow: 0px 0px 10px rgba(196, 226, 255, 0.3);
+      box-shadow: 0 0 10px rgba(196, 226, 255, 0.3);
       border-radius: 30px;
-      padding: 40px 50px 50px 50px;
+      padding: 40px 50px 50px;
     }
 
     #time {
@@ -36,45 +36,37 @@
       margin-top: 10px;
       font-size: 18px;
     }
-    .text {
+
+    p.title {
       margin: 0;
       font-size: 14px;
       color: rgb(122, 122, 122);
     }
-    
   </style>
 </head>
 
 <body>
-  <div id="container">
-
-    <div class="border">
-      
-        <p class="text">Current data:</p>
-      
-      <div class="general-date">
-        <div class="time-slot">
-          <span id="time"></span>
-        </div>
-        <div class="date-slot">
-          <span id="date"></span>
-        </div>
+  <div id="container" class="centered-flex">
+    <div class="border centered-flex">
+      <p class="title">Current data:</p>
+      <div class="general-date centered-flex">
+        <span id="time"></span>
+        <span id="date"></span>
       </div>
     </div>
-    
   </div>
 
   <script>
-    function currentTime() {
-    let date = new Date();
-    // console.log(date);
-    document.getElementById('time').innerHTML = date.toLocaleTimeString();
-    }
-    setInterval(currentTime, 1000);  // co sekundę będzie wywoływana funkcja currentTime
-    
-    let date = new Date();
-    document.getElementById('date').innerHTML = date.toLocaleDateString();
+    function update() {
+      const date = new Date();
 
+      document.getElementById('date').innerHTML = date.toLocaleDateString();
+      document.getElementById('time').innerHTML = date.toLocaleTimeString();
+    }
+
+    setInterval(update, 1000);  // co minutę będzie wywoływana funkcja currentDate
+
+    update();
   </script>
 </body>
 </html>

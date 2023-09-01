@@ -39,7 +39,7 @@
   <script>
 
     async function startApp() {
-      const apiUrl = 'http://api.nbp.pl/api/exchangerates/tables/a?format=json';  // kod JSON zwracany przez serwer
+      const apiUrl = 'https://api.nbp.pl/api/exchangerates/tables/a?format=json';  // kod JSON zwracany przez serwer
       const response = await fetch(apiUrl);  // chcemy poczekać aż funkcja fetch sie wykona
       const data = await response.json();
       // console.log(response);

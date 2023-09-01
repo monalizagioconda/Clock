@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>currency-table</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      width: 100vw;
+      background-color: #363d57;
+    }
+    .container {
+      width: 400px;
+      background: white;
+      border-radius: 10px;
+    }
+
+    .container h3 {
+      text-align: center;
+    }
+
+    .rate {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 5px;
+      margin: 10px;
+      border-bottom: 1px dotted black;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h3>Tabela NBP nr: <span id="date"></span></h3>
+    <div id="data-table"></div>
+  </div>
+  <script>
+
+    async function startApp() {
+      const apiUrl = 'http://api.nbp.pl/api/exchangerates/tables/a?format=json';  // kod JSON zwracany przez serwer
+      const response = await fetch(apiUrl);  // chcemy poczekać aż funkcja fetch sie wykona
+      const data = await response.json();
+      // console.log(response);
+
+      processData(data[0]);
+    }
+    startApp();
+
+    function processData(data) {
+      console.log(data);
+
+      const code = data.effectiveDate;
+      const table = data.table;
+      const tableNum = data.no;
+      const ratesArr = data.rates;
+
+      const dataTableDiv = document.getElementById("data-table");
+      document.getElementById("date").innerHTML = tableNum;
+
+      ratesArr.forEach(element => {
+        const code = element.code; // USD
+        const currency = element.currency; // dolar amerykański
+        const price = element.mid; // 4.1263
+
+        addRateContent(code, currency, price, dataTableDiv);
+      });
+    }
+
+    function addRateContent(code, currency, price, dataTableDiv) {
+      const el = document.createElement('div');  // dodajemy nowy element div, który narazie jest w pamięci
+      el.classList.add('rate'); // przypisujemy mu klasę 'rate'
+
+      el.innerHTML = `
+        <div> ${code} </div>
+        <div> ${currency} </div>
+        <div> ${price} zł </div>
+      `; // !!! w innerHTML możemy pisać kod HTML
+
+      dataTableDiv.append(el); // dodanie el do dataTableDiv
+    }
+
+  </script>
+</body>
+</html>

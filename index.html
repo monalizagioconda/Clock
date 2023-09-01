@@ -24,7 +24,7 @@
       border: 2px solid rgb(196, 226, 255);
       box-shadow: 0 0 10px rgba(196, 226, 255, 0.3);
       border-radius: 30px;
-      padding: 40px 50px 50px; /* wystarczą 3 */
+      padding: 40px 50px; /* wystarczą 3 */
     }
 
     #time {
@@ -67,6 +67,7 @@
     setInterval(currentTime, 1000);  // co sekundę będzie wywoływana funkcja currentTime. UWAGA! setInterval uruchamia się na początku po wpisanym czasie, tu po sekundzie! Dlatego jest funkcja wywołana też i ododzielnie; 1000miliseconds może być niedokładne, lepiej dać np. 50
     
 
+    update();
   </script>
 </body>
 </html>
